@@ -1,0 +1,92 @@
+<template>
+    <lightning-card title={formTitle} icon-name="standard:account" class="slds-var-p-around_medium">
+
+        <div class="slds-var-p-around_medium">
+
+            <lightning-combobox
+            name="parentAcc"
+            label="Parent Account"
+            placeholder="Select Parent Account"
+            options={parentoptions}
+            onchange={handleChange}
+            required = 'true'
+            message-when-value-missing = 'Please Select Parent Account'
+            class="validateme"
+            value={selectedParent}>
+            </lightning-combobox>
+
+
+            <lightning-input label="Enter Account Name"
+            type="text"
+            name="accName"
+            placeholder="Enter Account Name"
+            onchange={handleChange}
+            required="true"
+            message-when-value-missing="Please Enter Account Name"
+            min-length="2"
+            max-length="50"
+            message-when-too-short="Minimum Length Of Account Name is 2"
+            message-when-too-long="Maximum Length of Account Name is 50"
+            class="validateme"
+            value={selectedAccName}>
+           </lightning-input>
+
+
+           <lightning-input label="SLA Expiration Date"
+           name="slaexpdt"
+           placeholder="Enter Date"
+           type="date"
+           required="true"
+           message-when-value-missing="Please Enter SLA Date"
+           onchange={handleChange}
+           value={selectedSlaDt}>
+           </lightning-input>
+
+
+           <template lwc:if={picklists.data}>
+
+           <lightning-radio-group name="slaradio"
+                          label="SLA Type"
+                          options={picklists.data.values}
+                          type="button"
+                          onchange={handleChange}
+                          value={selectedSlaType}>
+            </lightning-radio-group>
+
+        </template>
+
+
+        <lightning-slider label="Number Of Location"
+        min="1"
+        max="50"
+        step="1"
+        value={selectedNoOfLoc}
+        onchange={handleChange}
+        name="noOfLoc">
+        </lightning-slider>
+
+        <br>
+
+        <lightning-input-rich-text
+        label="Description"
+        name="description"
+        label-visible = 'true'
+        disabled-categories="FORMAT_FONT"
+        onchange={handleChange}
+        value={selectedDes}>
+       </lightning-input-rich-text>
+
+
+        </div>
+
+        <div class="slds-var-p-around_medium">
+            <lightning-button label={saveButton} variant="brand" onclick={saveRecord}></lightning-button>
+
+            <template lwc:if={isDeleteAvailable}>
+                <lightning-button variant="destructive" label="Delete Account" title="Delete" onclick={deleteHandler} class="slds-m-left_x-small"></lightning-button>
+            </template>
+        </div>
+
+    </lightning-card>
+    
+</template>
